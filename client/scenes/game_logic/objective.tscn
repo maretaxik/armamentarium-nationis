@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://dhoy5bqb62cyt"]
+
+[ext_resource type="Script" uid="uid://d3ksitu7o53pn" path="res://client/scripts/game_logic/objective.gd" id="1_lkbd6"]
+[ext_resource type="Material" uid="uid://b0cpcolsl6yhm" path="res://client/assets/textures/pulse.tres" id="2_363g7"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_i5xgn"]
+radius = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wlvlc"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.0392157)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vdcar"]
+material = SubResource("StandardMaterial3D_wlvlc")
+top_radius = 3.0
+bottom_radius = 3.0
+height = 0.05
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2s50r"]
+material = ExtResource("2_363g7")
+top_radius = 3.1
+bottom_radius = 3.1
+height = 0.07
+
+[sub_resource type="Animation" id="Animation_5j851"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_vdcar"]
+resource_name = "new_animation"
+step = 0.0
+
+[sub_resource type="Animation" id="Animation_wlvlc"]
+resource_name = "pulse"
+step = 0.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2s50r"]
+_data = {
+&"RESET": SubResource("Animation_5j851"),
+&"new_animation": SubResource("Animation_vdcar"),
+&"pulse": SubResource("Animation_wlvlc")
+}
+
+[node name="Objective" type="Node3D"]
+script = ExtResource("1_lkbd6")
+
+[node name="InteractionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+shape = SubResource("CylinderShape3D_i5xgn")
+
+[node name="CaptureMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+mesh = SubResource("CylinderMesh_vdcar")
+
+[node name="GlowMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0.03, 0)
+mesh = SubResource("CylinderMesh_2s50r")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2s50r")
+}
+
+[node name="ProgressIndicator" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="ProgressIndicator"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 27.0
+grow_horizontal = 2

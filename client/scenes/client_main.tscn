@@ -1,0 +1,269 @@
+[gd_scene load_steps=5 format=3 uid="uid://dc1awc56pv258"]
+
+[ext_resource type="Script" uid="uid://bwdceub35xeqf" path="res://client/game_client.gd" id="1_rwxvi"]
+[ext_resource type="Script" uid="uid://bj7ghmy6rjdti" path="res://client/scenes/ui/ui_manager.gd" id="2_2jffr"]
+
+[sub_resource type="Sky" id="Sky_xh82j"]
+
+[sub_resource type="Environment" id="Environment_2jffr"]
+background_mode = 2
+sky = SubResource("Sky_xh82j")
+tonemap_mode = 3
+glow_enabled = true
+
+[node name="Client" type="Node"]
+script = ExtResource("1_rwxvi")
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="Environment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_2jffr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(-0.866025, 0, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866025, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Level" type="Node3D" parent="World"]
+
+[node name="Players" type="Node3D" parent="World"]
+
+[node name="Effects" type="Node3D" parent="World"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("2_2jffr")
+
+[node name="MainMenu" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="UI/MainMenu"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.12, 0.12, 0.12, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenu"]
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = -200.0
+offset_bottom = -150.0
+
+[node name="TitleLabel" type="Label" parent="UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "MULTIPLAYER GAME"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="UI/MainMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "Your Name:"
+
+[node name="NameInput" type="LineEdit" parent="UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "Player"
+placeholder_text = "Enter your name"
+
+[node name="Spacer2" type="Control" parent="UI/MainMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="AddressLabel" type="Label" parent="UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "Server Address:"
+
+[node name="AddressInput" type="LineEdit" parent="UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "127.0.0.1"
+placeholder_text = "Enter server address"
+
+[node name="Spacer3" type="Control" parent="UI/MainMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="ConnectButton" type="Button" parent="UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Connect"
+
+[node name="Spacer4" type="Control" parent="UI/MainMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "Quit Game"
+
+[node name="LobbyScreen" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="UI/LobbyScreen"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.15, 0.15, 0.15, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/LobbyScreen"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = -250.0
+offset_bottom = -200.0
+
+[node name="LobbyTitle" type="Label" parent="UI/LobbyScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Game Lobby"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="UI/LobbyScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="PlayersLabel" type="Label" parent="UI/LobbyScreen/VBoxContainer"]
+layout_mode = 2
+text = "Players:"
+
+[node name="PlayerList" type="ItemList" parent="UI/LobbyScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Spacer2" type="Control" parent="UI/LobbyScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="TeamLabel" type="Label" parent="UI/LobbyScreen/VBoxContainer"]
+layout_mode = 2
+text = "Choose Team:"
+
+[node name="TeamButtons" type="HBoxContainer" parent="UI/LobbyScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="Team1Button" type="Button" parent="UI/LobbyScreen/VBoxContainer/TeamButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Join Blue Team"
+
+[node name="Team2Button" type="Button" parent="UI/LobbyScreen/VBoxContainer/TeamButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Join Red Team"
+
+[node name="Spacer3" type="Control" parent="UI/LobbyScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="ReadyButton" type="Button" parent="UI/LobbyScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Ready"
+
+[node name="DisconnectButton" type="Button" parent="UI/LobbyScreen/VBoxContainer"]
+layout_mode = 2
+text = "Disconnect"
+
+[node name="GameHUD" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScorePanel" type="Panel" parent="UI/GameHUD"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 0
+anchor_right = 1.0
+
+[node name="ScoreLabel" type="Label" parent="UI/GameHUD/ScorePanel"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+text = "BLUE: 0  RED: 0"
+horizontal_alignment = 1
+
+[node name="HealthBar" type="ProgressBar" parent="UI/GameHUD"]
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -40.0
+offset_right = 220.0
+offset_bottom = -13.0
+value = 100.0
+
+[node name="Crosshair" type="Label" parent="UI/GameHUD"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+theme_override_font_sizes/font_size = 20
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ConnectionDialog" type="PopupPanel" parent="UI"]
+size = Vector2i(400, 100)
+
+[node name="StatusLabel" type="Label" parent="UI/ConnectionDialog"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 396.0
+offset_bottom = 96.0
+text = "Connecting to server..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ErrorDialog" type="PopupPanel" parent="UI"]
+size = Vector2i(400, 150)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ErrorDialog"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 396.0
+offset_bottom = 146.0
+
+[node name="ErrorLabel" type="Label" parent="UI/ErrorDialog/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Connection failed!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OkButton" type="Button" parent="UI/ErrorDialog/VBoxContainer"]
+layout_mode = 2
+text = "OK"
+
+[node name="AudioManager" type="Node" parent="."]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="AudioManager"]
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="AudioManager"]

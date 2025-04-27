@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://opwsiy6cixjx"]
+
+[ext_resource type="Script" uid="uid://dmxte0uf17txr" path="res://client/scripts/player/player_controller.gd" id="1_8afob"]
+[ext_resource type="Script" uid="uid://t5ta6ouskcs5" path="res://client/scripts/player/weapon_manager.gd" id="2_dovo2"]
+[ext_resource type="PackedScene" uid="uid://ufktdhanihmg" path="res://client/scenes/weapons/hk_45.tscn" id="3_gmlin"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dovo2"]
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gmlin"]
+height = 1.8
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_8afob")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_dovo2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_gmlin")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+current = true
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -2)
+collision_mask = 2
+
+[node name="WeaponHolder" type="Node3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.677385, -0.364172, -1.12281)
+script = ExtResource("2_dovo2")
+starting_weapon_scene = ExtResource("3_gmlin")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://7lf5dyptgyjm"]
+
+[ext_resource type="PackedScene" uid="uid://bgc2wr5d4r54m" path="res://client/scenes/ui/game_ui.tscn" id="1_6jwg7"]
+[ext_resource type="Script" uid="uid://dglw3400gcfke" path="res://client/scenes/game_logic/game_manager.gd" id="1_a51ni"]
+[ext_resource type="PackedScene" uid="uid://opwsiy6cixjx" path="res://client/scenes/player/player.tscn" id="2_ftyjf"]
+[ext_resource type="PackedScene" uid="uid://42oqm68rqqb4" path="res://client/scenes/maps/test_map.tscn" id="3_2y354"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_a51ni")
+player_scene = ExtResource("2_ftyjf")
+test_map_scene = ExtResource("3_2y354")
+
+[node name="GameUI" parent="." instance=ExtResource("1_6jwg7")]
+
+[node name="Timer" type="Timer" parent="."]
